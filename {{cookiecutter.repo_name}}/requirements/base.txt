@@ -1,0 +1,20 @@
+# All common dependencies go here
+
+Django
+Jinja2
+MarkupSafe
+psycopg2
+Pillow
+dj-database-url
+django-appconf
+django-autoslug
+django-avatar
+django-crispy-forms
+django-model-utils
+django-secure
+docutils
+ipdb
+ipython
+unicode-slugify
+djangocms-admin-style
+django-ckeditor
