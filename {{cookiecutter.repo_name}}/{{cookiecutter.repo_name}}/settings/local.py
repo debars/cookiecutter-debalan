@@ -1,20 +1,8 @@
 # -*- coding: utf-8 -*-
-from base import *
+from .base import *
 
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '{{cookiecutter.project_name}}',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': '',
-        'CONN_MAX_AGE': 600,
-    }
-}
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
@@ -22,14 +10,39 @@ DEBUG_TOOLBAR_CONFIG = {
 
 MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
 
-TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.debug',)
-
 INTERNAL_IPS = ('127.0.0.1',)
 
 INSTALLED_APPS += (
     'debug_toolbar',
 )
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            BASE_DIR.child('templates'),
+            os.path.join(PROJECT_DIR.child('service'), 'templates', 'service'),
+        ],
+        #'APP_DIRS': True,
+        'OPTIONS': {
+            'debug': True,
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ],
+        },
+    },
+]
 
 CACHES = {
     'default': {
@@ -39,5 +52,3 @@ CACHES = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-SECRET_KEY = '#'
